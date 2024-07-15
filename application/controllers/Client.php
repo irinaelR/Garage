@@ -8,6 +8,7 @@ class Client extends CI_Controller {
         $this->load->model('client_model');
         $this->load->helper('url');
         $this->load->helper('form');
+        // $this->load->helper('type');
         $this->load->library('form_validation');
     }
 

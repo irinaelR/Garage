@@ -133,3 +133,6 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array();
+
+$autoload['heureOuverture'] = "08:00:00";
+$autoload['heureFermeture'] = "18:00:00";
