@@ -121,11 +121,16 @@ $this->form_validation->set_rules('slot', 'Slot', 'required');
     }
 
     public function exportDevisPdf(){
-        // $id = $this->input->get('id');
-        $devis = $this->devis_model->get_item_by_id(1);
+        $id = $this->input->get('id');
+        $devis = $this->devis_model->get_item_by_id($id);
+        
+        $this->load->model('pdfGenerator_model');
+
+        $devis['dateDevis'] = $this->pdfGenerator_model->formatDate($devis['dateDevis']);
+        $devis['dureeService'] = $this->pdfGenerator_model->formatTime($devis['dureeService']);
+        $devis['prixService'] = number_format($devis['prixService'], 3, ',', ' ');
 
         $data['devis'] = $devis;
-        $this->load->model('pdfGenerator_model');
         $this->pdfGenerator_model->generate_pdf($data);
         // $this->load->view('pdf_template', $data);
     }
