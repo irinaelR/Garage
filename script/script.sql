@@ -5,7 +5,7 @@ use garage;
 create table garage_type_voiture(
     idTypeVoiture int auto_increment,
     nom varchar(50),
-    primary key(idType_voiture)
+    primary key(idTypeVoiture)
 )engine=innoDB;
 
 create table garage_slot(
@@ -25,7 +25,7 @@ create table garage_client(
 create table garage_service(
     idService int auto_increment,
     nom varchar(50),
-    duree timestamp,
+    duree time,
     prix decimal(15,3),
     primary key(idService)
 )engine=innoDB;
@@ -48,7 +48,7 @@ create table garage_devis(
     numVoiture varchar(50),
     nomService varchar(50),
     prixService decimal(15,3),
-    dureeService timestamp,
+    dureeService time,
     slot varchar(50),
     primary key (idDevis)
 )engine=innoDB;
