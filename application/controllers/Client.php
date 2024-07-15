@@ -40,7 +40,7 @@ class Client extends CI_Controller {
 
             );
             $exist = $this->client_model->get_item_by_name_type($data['numVoiture']);
-            if(is_countable($exist) && count($exist) != 0){
+            if(is_array($exist) && count($exist) != 0){
                 if ($exist["numVoiture"] == $data['numVoiture'] && $exist["idTypeVoiture"] == $data['idTypeVoiture']) {
                     $response = array(
                         'status' => 'success',
