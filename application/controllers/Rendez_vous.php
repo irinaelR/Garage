@@ -25,8 +25,8 @@ class Rendez_vous extends CI_Controller {
 
     public function create() {
         // $this->form_validation->set_rules('idRendezVous', 'IdRendezVous', 'required');
-$this->form_validation->set_rules('dateDebut', 'DateDebut', 'required');
-$this->form_validation->set_rules('idService', 'IdService', 'required');
+        $this->form_validation->set_rules('dateDebut', 'DateDebut', 'required');
+        $this->form_validation->set_rules('idService', 'IdService', 'required');
 // $this->form_validation->set_rules('idSlot', 'IdSlot', 'required');
 // $this->form_validation->set_rules('idClient', 'IdClient', 'required');
 
@@ -42,7 +42,8 @@ $this->form_validation->set_rules('idService', 'IdService', 'required');
             $idService = $this->input->post('idService');
             $service = $this->service_model->get_item_by_id($idService);
             $available_slots = $this->slot_model->get_available($dhDebut, $service["duree"]);
-            $idClient = $this->session->userdata("client")["idClient"];
+            $client = $this->session->userdata("client");
+            $idClient = $client->getIdClient();
 
             if(count($available_slots) == 0) {
                 $response = array(
@@ -54,8 +55,8 @@ $this->form_validation->set_rules('idService', 'IdService', 'required');
                     'idRendezVous' => null,
                     'dateDebut' => $dhDebut,
                     'idService' => $idService,
-                    'idSlot' => $this->input->$available_slots[0],
-                    'idClient' => $this->input->$idClient,
+                    'idSlot' => $available_slots[0]["idSlot"],
+                    'idClient' => $idClient,
     
                 );
                 if ($this->rendez_vous_model->create_item($data)) {
@@ -70,8 +71,8 @@ $this->form_validation->set_rules('idService', 'IdService', 'required');
                     );
                 }
 
-                echo json_encode($response);
             }
+            echo json_encode($response);
         }
     }
 
@@ -129,15 +130,22 @@ $this->form_validation->set_rules('idClient', 'IdClient', 'required');
     }
 
     public function nouveau_rdv() {
-        $data = array();
-        $data['title'] = "Nouveau rendez-vous";
-
-        $services = $this->service_model->get_all_items();
-        $data['services'] = $services;
-
-        $this->load->view('templates/header', $data);
-		$this->load->view('frontoffice/rdv', $data);
-        $this->load->view('templates/footer');
+            $client = $this->session->userdata("client");
+        // if($client != null) {
+            $data = array();
+            $data['title'] = "Nouveau rendez-vous";
+    
+            $services = $this->service_model->get_all_items();
+            $data['services'] = $services;
+    
+            $data['client'] = $client;
+    
+            $this->load->view('templates/header', $data);
+            $this->load->view('frontoffice/rdv', $data);
+            $this->load->view('templates/footer');
+        // } else {
+            
+        // }
     }
 }
 

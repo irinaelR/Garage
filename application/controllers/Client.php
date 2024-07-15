@@ -47,12 +47,8 @@ class Client extends CI_Controller {
                         'status' => 'success',
                         'message' => 'User connected successfully.'
                     );
-                    $obj = new Client_model();
-                    $obj->setIdClient($exist["idClient"]);
-                    $obj->setNumVoiture($exist["numVoiture"]);
-                    $obj->setIdTypeVoiture($exist["idTypeVoiture"]);
-                    $obj_data = (array) $obj;
-                    $this->session->set_userdata("client", $obj_data);
+                    
+                    $this->session->set_userdata("client", "gxdych v");
                 } else {
                     $response = array(
                         'status' => 'error',
@@ -67,7 +63,7 @@ class Client extends CI_Controller {
                     'status' => 'success',
                     'message' => 'User created successfully.'
                 );
-                $exist = $this->client_model->get_item_by_name_type($data['numVoiture']);
+                $sess = $this->client_model->get_item_by_name_type($data['numVoiture']);
                 $obj = new Client_model();
                 $obj->setIdClient($exist["idClient"]);
                 $obj->setNumVoiture($exist["numVoiture"]);
