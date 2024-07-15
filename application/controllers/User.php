@@ -3,7 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
 
-	/**
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+        $this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->load->model('type_voiture_model');
+        $this->load->model('client_model');
+    }
+
+    /**
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
@@ -21,25 +32,13 @@ class User extends CI_Controller {
 	public function signIn()
 	{
 		$data['title'] = "Sign In"; 
+        $types = $this->type_voiture_model->get_all_items();
+        $data['types'] = $types;
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
 
         // $this->load->view('templates/navbar', $data);
 		$this->load->view('profile/sign_in');
         $this->load->view('templates/footer');
-	}
-
-	public function signUp()
-	{
-		$data['title'] = "Sign Up"; 
-		if(isset($_SESSION['kikou'])) {
-			$data['title'] = $_SESSION['kikou'];
-		}
-
-        // $this->load->view('templates/navbar', $data);
-		
-		$this->load->view('profile/sign_up');
-        $this->load->view('templates/footer');
-	
 	}
 }

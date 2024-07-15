@@ -7,11 +7,8 @@
         <div class="p-4 sm:p-7">
             <div class="text-center">
             <h1 class="block text-3xl font-bold text-primary-50">Sign in</h1>
-            <p class="mt-2 text-sm text-primary-50">
-                Don't have an account yet?
-                <a class="text-secondary decoration-2 hover:underline font-medium" href="<?php echo(site_url("User/signUp")) ?>">
-                Sign up here
-                </a>
+            <p class="mt-2 text-sm text-primary-50 error">
+                Connectez-vous ou inscrivez-vous
             </p>
             </div>
 
@@ -29,19 +26,23 @@
             <!-- <div class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6">Or</div> -->
 
             <!-- Form -->
-            <form>
+            <form id="form">
                 <div class="grid gap-y-4">
                     <!-- Form Group -->
                     <div class="mb-2">
-                        <label for="email" class="block text-primary-50 text-sm mb-2">Email address</label>
-                        <input type="email" id="email" name="email" class="py-3 px-4 block w-full rounded-lg text-sm focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none" required aria-describedby="email-error">
+                        <label for="numVoiture" class="block text-primary-50 text-sm mb-2">Numero voiture</label>
+                        <input type="text" id="numVoiture" name="numVoiture" class="py-3 px-4 block w-full rounded-lg text-sm focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none field" required aria-describedby="numero-voiture-error">
                     </div>
                     <!-- End Form Group -->
 
                     <!-- Form Group -->
                     <div class="mb-2">
-                        <label for="password" class="block text-sm mb-2 text-primary-50">Password</label>
-                        <input type="password" id="password" name="password" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required aria-describedby="password-error">
+                        <label for="idTypeVoiture" class="block text-sm mb-2 text-primary-50">Type voiture</label>
+                        <select id="idTypeVoiture" name="idTypeVoiture" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none field" required aria-describedby="type-error">
+                            <?php foreach ($types as $type) { ?>
+                                <option value="<?php echo $type['idTypeVoiture'] ?>"><?php echo $type["nom"] ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <!-- End Form Group -->
 
@@ -54,3 +55,5 @@
     </div>
     
 </div>
+
+<script src="<?php echo base_url("assets/js/login.js")?>" type="module"></script>
