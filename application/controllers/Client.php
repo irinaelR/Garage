@@ -47,18 +47,18 @@ class Client extends CI_Controller {
                         'status' => 'success',
                         'message' => 'User connected successfully.'
                     );
+                    $obj = new Client_model();
+                    $obj->setIdClient($exist["idClient"]);
+                    $obj->setNumVoiture($exist["numVoiture"]);
+                    $obj->setIdTypeVoiture($exist["idTypeVoiture"]);
+                    $obj_data = (array) $obj;
+                    $this->session->set_userdata("client", $obj_data);
                 } else {
                     $response = array(
                         'status' => 'error',
                         'message' => 'Numero ou type voiture incorrect.'
                     );
                 }
-                $exist = $this->client_model->get_item_by_name_type($data['numVoiture']);
-                $obj = new Client_model();
-                $obj->setIdClient($exist["idClient"]);
-                $obj->setNumVoiture($exist["numVoiture"]);
-                $obj->setIdTypeVoiture($exist["idTypeVoiture"]);
-                $this->session->set_userdata("client", $obj);
                 echo json_encode($response);
                 return;
             }
@@ -72,7 +72,8 @@ class Client extends CI_Controller {
                 $obj->setIdClient($exist["idClient"]);
                 $obj->setNumVoiture($exist["numVoiture"]);
                 $obj->setIdTypeVoiture($exist["idTypeVoiture"]);
-                $this->session->set_userdata("client", $obj);
+                $obj_data = (array) $obj;
+                $this->session->set_userdata("client", $obj_data);
             } else {
                 $response = array(
                     'status' => 'error',
