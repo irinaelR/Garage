@@ -22,7 +22,9 @@ class User extends CI_Controller {
 	{
 		$data['title'] = "Sign In"; 
 
-        $this->load->view('templates/navbar', $data);
+        $this->load->view('templates/header');
+
+        // $this->load->view('templates/navbar', $data);
 		$this->load->view('profile/sign_in');
         $this->load->view('templates/footer');
 	}
@@ -34,7 +36,8 @@ class User extends CI_Controller {
 			$data['title'] = $_SESSION['kikou'];
 		}
 
-        $this->load->view('templates/navbar', $data);
+        // $this->load->view('templates/navbar', $data);
+		
 		$this->load->view('profile/sign_up');
         $this->load->view('templates/footer');
 	

@@ -25,6 +25,7 @@ class GeneralEntity extends CI_Controller {
 		$this->session->set_userdata('kikou', 'bonjour');
 
 		$data['zizi'] = $this->session->userdata('kikou');
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
 		$this->load->view('crud/list_and_form', $data);
         $this->load->view('templates/footer');
