@@ -22,7 +22,7 @@ module.exports = {
         },
         secondary: '#0caadc',
         light: {DEFAULT:'#D7FFF1', 'transparent':'#D7FFF178'},
-        dark: '#1d3354',
+        dark: {DEFAULT: '#1d3354', 'transparent': '#1d335455'},
         accent: '#9381FF'
       }
     },

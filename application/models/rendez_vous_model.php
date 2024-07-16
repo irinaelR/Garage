@@ -117,4 +117,20 @@ public function setIdClient($idClient)
         $this->db->where('id', $id);
         return $this->db->delete('garage_rendez_vous');
     }
+
+    public function verify_date_debut($dh) {
+        $heureOuverture = $this->db->get_where('garage_horaire', array('nom' => 'ouverture'));
+        $heureOuvertureRA = $heureOuverture->row_array()["heure"];
+        $heureFermeture = $this->db->get_where('garage_horaire', array('nom' => 'fermeture'));
+        $heureFermetureRA = $heureFermeture->row_array()["heure"];
+
+        // Create a DateTime object from the datetime input
+        $datetime = new DateTime($dh);
+
+        // Format the time part only
+        $time_only = $datetime->format('H:i:s');
+        
+        return (new DateTime($time_only) >= new DateTime($heureOuvertureRA) && new DateTime($time_only) < new DateTime($heureFermetureRA));
+
+    }
 }

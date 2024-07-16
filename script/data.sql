@@ -38,3 +38,5 @@ INSERT INTO garage_rendez_vous (dateDebut, idService, idSlot, idClient) VALUES
     ('2024-07-18 09:00:00', 1, 1, 1),   -- Réparation simple at Slot A for Client 1
     ('2024-07-18 11:00:00', 2, 2, 2),   -- Réparation standard at Slot B for Client 2
     ('2024-07-18 14:00:00', 4, 3, 3);   -- Entretien at Slot C for Client 3
+
+INSERT INTO garage_horaire VALUES ('ouverture', '08:00:00'), ('fermeture', '18:00:00');

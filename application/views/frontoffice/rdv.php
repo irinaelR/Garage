@@ -4,8 +4,8 @@
         <h1 class="text-3xl font-bold text-primary-50 sm:text-4xl">
         Rendez-vous
         </h1>
-        <p class="mt-1 text-primary-50">
-        Réservez votre prochain rendez-vous chez nous <?php echo($client["numVoiture"]) ?>
+        <p class="mt-1 text-primary-50 error">
+        Réservez votre prochain rendez-vous chez nous
         </p>
     </div>
 
@@ -45,5 +45,6 @@
     </div>
     </div>
 </div>
+
 
 <script src="<?php echo(base_url("assets/js/rdv.js")) ?>"></script>

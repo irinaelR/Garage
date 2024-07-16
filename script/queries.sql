@@ -19,13 +19,14 @@ END //
 
 DELIMITER ;
 
-SELECT rdv.*, END_DATETIME(rdv.dateDebut, s.duree, '08:00:00', '18:00:00') AS dateFin
+SELECT idSlot FROM garage_slot WHERE idSlot IN
+    (SELECT idSlot
     FROM garage_rendez_vous AS rdv
     JOIN garage_service AS s
         ON rdv.idService = s.idService
-    WHERE 
+    WHERE
             -- va commencer avant et va se finir après le début du nouveau rdv
-            ((rdv.dateDebut < '2024-07-15 09:00:00' AND END_DATETIME(rdv.dateDebut, s.duree, '08:00:00', '18:00:00') > '2024-07-15 09:00:00') 
-            OR 
+            ((rdv.dateDebut < '2024-07-15 09:00:00' AND END_DATETIME(rdv.dateDebut, s.duree, '08:00:00', '18:00:00') > '2024-07-15 09:00:00')
+            OR
             -- va commencer pendant l'intervalle du nouveau rdv
-            (rdv.dateDebut >= '2024-07-15 09:00:00' AND rdv.dateDebut < END_DATETIME('2024-07-15 09:00:00', '02:00:00', '08:00:00', '18:00:00')));
+            (rdv.dateDebut >= '2024-07-15 09:00:00' AND rdv.dateDebut < END_DATETIME('2024-07-15 09:00:00', '02:00:00', '08:00:00', '18:00:00'))))

@@ -1,1 +1,1 @@
-insert into garage_devis values (null, "15/06/2024", "4050TAC", "simple", 15000, "02:00:00", "A");
+insert into garage_devis values (null, "2024-06-15", "4050TAC", "simple", 15000, "02:00:00", "A");
