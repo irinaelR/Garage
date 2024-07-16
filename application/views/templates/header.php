@@ -6,6 +6,7 @@
     <title><?php echo($title); ?></title>
     <link rel="stylesheet" href="<?php echo(base_url("assets/css/style.css")) ?>">
     <link rel="stylesheet" href="<?php echo(base_url("assets/css/custom.css")) ?>">
+  <script src="<?php echo(base_url("assets/js/jquery.js"))  ?>"></script>
     <style>
       body {
         background: url('<?php echo(base_url("assets/img/bg/pattern-randomized-dark.png")) ?>');

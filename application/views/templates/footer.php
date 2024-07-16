@@ -43,8 +43,6 @@
   <!-- End Grid -->
 </footer>
 <script src="<?php echo(base_url("node_modules/preline/dist/preline.js"))  ?>"></script>
-<script src="<?php echo(base_url("assets/js/jquery.js"))  ?>"></script>
-<script src="<?php echo(base_url("assets/js/service.js"))  ?>"></script>
-<script src="<?php echo(base_url("assets/js/devis.js"))  ?>"></script>
+
 </body>
 </html>
