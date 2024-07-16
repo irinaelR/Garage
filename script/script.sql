@@ -65,3 +65,9 @@ CREATE TABLE garage_horaire(
     nom VARCHAR(50),
     heure TIME
 )engine=innoDB;
+
+create table garage_admin (
+    idAdmin int primary key auto_increment,
+    identifiant varchar(20),
+    mdp varchar(64)
+);

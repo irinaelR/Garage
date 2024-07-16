@@ -1,0 +1,1 @@
+INSERT INTO garage_admin VALUES (null, "admin", sha2("admin", 256));
