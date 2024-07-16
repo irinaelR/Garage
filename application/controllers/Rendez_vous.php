@@ -131,22 +131,20 @@ class Rendez_vous extends CI_Controller {
 
     public function nouveau_rdv() {
         $client = $this->session->userdata('client');
-         if($client != null) {
+
+        if($client != null) {
             $data = array();
             $data['title'] = "Nouveau rendez-vous";
-    
+
             $services = $this->service_model->get_all_items();
             $data['services'] = $services;
-    
-            $data['client'] = $client;
-    
+
             $this->load->view('templates/header', $data);
             $this->load->view('frontoffice/rdv', $data);
             $this->load->view('templates/footer');
-         }
-//         else {
-            
-        // }
+        } else {
+            redirect('/User/signIn');
+        }
     }
 }
 
