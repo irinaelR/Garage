@@ -89,17 +89,17 @@ class Service_model extends CI_Model {
     }
 
     public function get_item_by_id($id) {
-        $query = $this->db->get_where('garage_service', array('id' => $id));
+        $query = $this->db->get_where('garage_service', array('idService' => $id));
         return $query->row_array();
     }
 
     public function update_item($id, $data) {
-        $this->db->where('id', $id);
+        $this->db->where('idService', $id);
         return $this->db->update('garage_service', $data);
     }
 
     public function delete_item($id) {
-        $this->db->where('id', $id);
+        $this->db->where('idService', $id);
         return $this->db->delete('garage_service');
     }
 }

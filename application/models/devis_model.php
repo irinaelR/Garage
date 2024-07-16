@@ -131,7 +131,8 @@ public function setSlot($slot)
 
 
     public function create_item($data) {
-        return $this->db->insert('garage_devis', $data);
+        $this->db->insert('garage_devis', $data);
+        return $this->db->insert_id();
     }
 
     public function get_all_items() {

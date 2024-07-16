@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->dompdf_gen->dompdf->loadHtml($html);
             $this->dompdf_gen->dompdf->setPaper('A4', 'portrait');
             $this->dompdf_gen->dompdf->render();
-            $this->dompdf_gen->dompdf->stream("devis.pdf", array("Attachment" => 1)); // 1 pour télécharger, 0 pour afficher dans le navigateur
+            $this->dompdf_gen->dompdf->stream("devis.pdf", array("Attachment" => 0)); // 1 pour télécharger, 0 pour afficher dans le navigateur
         }
 
         public function formatDate($dateString){

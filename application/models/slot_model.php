@@ -70,12 +70,15 @@ public function setNom($nom)
     }
 
     public function get_available($dateDebut, $duree) {
-        $heureOuverture = $this->load->heureOuverture;
-        $heureFermeture = $this->load->heureFermeture;
+        $heureOuverture = $this->db->get_where('garage_horaire', array('nom' => 'ouverture'));
+        $heureOuvertureRA = $heureOuverture->row_array();
+        $heureFermeture = $this->db->get_where('garage_horaire', array('nom' => 'fermeture'));
+        $heureFermetureRA = $heureFermeture->row_array();
 
-        $sql = "SELECT idSlot from garage_slot WHERE idSlot NOT IN (SELECT rdv.idSlot FROM garage_rendez_vous AS rdv JOIN garage_service AS s ON rdv.idService = s.idService WHERE ((rdv.dateDebut < ? AND END_DATETIME(rdv.dateDebut, s.duree, ?, ?) > ?) OR (rdv.dateDebut >= ? AND rdv.dateDebut < END_DATETIME(?, ?, ?, ?))))";
 
-        $query_data = array($dateDebut, $heureOuverture, $heureFermeture, $dateDebut, $dateDebut, $dateDebut, $duree, $heureOuverture, $heureFermeture);
+        $sql = "SELECT * from garage_slot WHERE idSlot NOT IN (SELECT rdv.idSlot FROM garage_rendez_vous AS rdv JOIN garage_service AS s ON rdv.idService = s.idService WHERE ((rdv.dateDebut < ? AND END_DATETIME(rdv.dateDebut, s.duree, ?, ?) > ?) OR (rdv.dateDebut >= ? AND rdv.dateDebut < END_DATETIME(?, ?, ?, ?))))";
+
+        $query_data = array($dateDebut, $heureOuvertureRA["heure"], $heureFermetureRA["heure"], $dateDebut, $dateDebut, $dateDebut, $duree, $heureOuvertureRA["heure"], $heureFermetureRA["heure"]);
 
         $query = $this->db->query($sql, $query_data);
 

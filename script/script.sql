@@ -16,7 +16,7 @@ create table garage_slot(
 
 create table garage_client(
     idClient int auto_increment,
-    numVoiture varchar(10),
+    numVoiture varchar(10) unique,
     idTypeVoiture int,
     primary key(idClient),
     foreign key (idTypeVoiture) references garage_type_voiture(idTypeVoiture)
@@ -59,4 +59,9 @@ create table garage_prestation(
     datePayement dateTime,
     primary key(idPrestation),
     foreign key(idDevis) references garage_devis(idDevis)
+)engine=innoDB;
+
+CREATE TABLE garage_horaire(
+    nom VARCHAR(50),
+    heure TIME
 )engine=innoDB;

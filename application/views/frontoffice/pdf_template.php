@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Devis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Devis</title>
+    <link rel="stylesheet" href="<?php echo(base_url("assets/css/style.css")) ?>">
+    <link rel="stylesheet" href="<?php echo(base_url("assets/css/custom.css")) ?>">
+    <style>
+      body {
+        background: url('<?php echo(base_url("assets/img/bg/pattern-randomized-dark.png")) ?>');
+        min-height: 100vh;
+      }
+    </style>
 </head>
 <body>
     <div>
@@ -26,7 +36,7 @@
                     <th>Service</th>
                     <th>Duree</th>
                     <th>Slot</th>
-                    <th>Prix</th>
+                    <th>Prix (Ar)</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,12 +44,12 @@
                     <td><?php echo $devis['nomService']?></td>
                     <td><?php echo $devis['dureeService']?></td>
                     <td><?php echo $devis['slot']?></td>
-                    <td><?php echo $devis['prixService']?></td>
+                    <td style="text-align:right;"><?php echo $devis['prixService']?></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <center><p><b>Total: <?php echo $devis['prixService']?></b></p></center>
+    <center><p><b>Total: <?php echo $devis['prixService']?> Ar</b></p></center>
 </body>
 </html>
 
