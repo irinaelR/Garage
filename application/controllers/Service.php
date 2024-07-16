@@ -22,10 +22,10 @@ class Service extends CI_Controller {
     }
 
     public function create() {
-        $this->form_validation->set_rules('idService', 'IdService', 'required');
-        $this->form_validation->set_rules('nom', 'Nom', 'required');
-        $this->form_validation->set_rules('duree', 'Duree', 'required');
-        $this->form_validation->set_rules('prix', 'Prix', 'required');
+        // $this->form_validation->set_rules('idService', 'IdService', 'required');
+$this->form_validation->set_rules('nom', 'Nom', 'required');
+$this->form_validation->set_rules('duree', 'Duree', 'required');
+$this->form_validation->set_rules('prix', 'Prix', 'required');
 
 
         if ($this->form_validation->run() === FALSE) {
@@ -37,9 +37,10 @@ class Service extends CI_Controller {
         } else {
             $data = array(
                 'idService' => $this->input->post('idService'),
-                'nom' => $this->input->post('nom'),
-                'duree' => $this->input->post('duree'),
-                'prix' => $this->input->post('prix'),
+'nom' => $this->input->post('nom'),
+'duree' => $this->input->post('duree'),
+'prix' => $this->input->post('prix'),
+
             );
             if ($this->service_model->create_item($data)) {
                 $response = array(
@@ -57,10 +58,10 @@ class Service extends CI_Controller {
     }
 
     public function update($id) {
-        $this->form_validation->set_rules('idService', 'IdService', 'required');
-        $this->form_validation->set_rules('nom', 'Nom', 'required');
-        $this->form_validation->set_rules('duree', 'Duree', 'required');
-        $this->form_validation->set_rules('prix', 'Prix', 'required');
+        // $this->form_validation->set_rules('idService', 'IdService', 'required');
+$this->form_validation->set_rules('nom', 'Nom', 'required');
+$this->form_validation->set_rules('duree', 'Duree', 'required');
+$this->form_validation->set_rules('prix', 'Prix', 'required');
 
 
         if ($this->form_validation->run() === FALSE) {
@@ -71,10 +72,10 @@ class Service extends CI_Controller {
             echo json_encode($response);
         } else {
             $data = array(
-                'idService' => $this->input->post('idService'),
-                'nom' => $this->input->post('nom'),
-                'duree' => $this->input->post('duree'),
-                'prix' => $this->input->post('prix'),
+                'idService' => $id,
+'nom' => $this->input->post('nom'),
+'duree' => $this->input->post('duree'),
+'prix' => $this->input->post('prix'),
 
             );
             if ($this->service_model->update_item($id, $data)) {
@@ -105,6 +106,15 @@ class Service extends CI_Controller {
             );
         }
         echo json_encode($response);
+    }
+
+    public function list(){
+        $data['title'] = "List"; 
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/navbar', $data);
+		$this->load->view('crud/service_list_and_form', $data);
+        $this->load->view('templates/footer');
     }
 }
 

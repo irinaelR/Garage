@@ -153,4 +153,18 @@ public function setSlot($slot)
         $this->db->where('id', $id);
         return $this->db->delete('garage_devis');
     }
+
+    public function get_devis_with_prestation(){
+        $this->db->select('garage_devis.*, garage_prestation.datePayement');
+        $this->db->from('garage_devis');
+        $this->db->join('garage_prestation', 'garage_devis.idDevis = garage_prestation.idDevis', 'left');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function update_date_payement($idDevis, $datePayement) {
+        $this->db->set('datePayement', $datePayement);
+        $this->db->where('idDevis', $idDevis);
+        return $this->db->update('garage_prestation');
+    }
 }

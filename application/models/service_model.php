@@ -4,9 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Service_model extends CI_Model {
 
     private $idService;
-    private $nom;
-    private $duree;
-    private $prix;
+private $nom;
+private $duree;
+private $prix;
 
     public function __construct() {
         parent::__construct();
@@ -14,68 +14,68 @@ class Service_model extends CI_Model {
     }
 
     /**
-    * @return mixed
-    */
-    public function getIdService()
-    {
-        return $this->idService;
-    }
+* @return mixed
+*/
+public function getIdService()
+{
+    return $this->idService;
+}
 
-    /**
-    * @param mixed $idService
-    */
-    public function setIdService($idService)
-    {
-        $this->idService = $idService;
-    }
+/**
+* @param mixed $idService
+*/
+public function setIdService($idService)
+{
+    $this->idService = $idService;
+}
 
-    /**
-    * @return mixed
-    */
-    public function getNom()
-    {
-        return $this->nom;
-    }
+/**
+* @return mixed
+*/
+public function getNom()
+{
+    return $this->nom;
+}
 
-    /**
-    * @param mixed $nom
-    */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-    }
+/**
+* @param mixed $nom
+*/
+public function setNom($nom)
+{
+    $this->nom = $nom;
+}
 
-    /**
-    * @return mixed
-    */
-    public function getDuree()
-    {
-        return $this->duree;
-    }
+/**
+* @return mixed
+*/
+public function getDuree()
+{
+    return $this->duree;
+}
 
-    /**
-    * @param mixed $duree
-    */
-    public function setDuree($duree)
-    {
-        $this->duree = $duree;
-    }
+/**
+* @param mixed $duree
+*/
+public function setDuree($duree)
+{
+    $this->duree = $duree;
+}
 
-    /**
-    * @return mixed
-    */
-    public function getPrix()
-    {
-        return $this->prix;
-    }
+/**
+* @return mixed
+*/
+public function getPrix()
+{
+    return $this->prix;
+}
 
-    /**
-    * @param mixed $prix
-    */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-    }
+/**
+* @param mixed $prix
+*/
+public function setPrix($prix)
+{
+    $this->prix = $prix;
+}
 
 
 
@@ -89,12 +89,12 @@ class Service_model extends CI_Model {
     }
 
     public function get_item_by_id($id) {
-        $query = $this->db->get_where('garage_service', array('id' => $id));
+        $query = $this->db->get_where('garage_service', array('idService' => $id));
         return $query->row_array();
     }
 
     public function update_item($id, $data) {
-        $this->db->where('id', $id);
+        $this->db->where('idService', $id);
         return $this->db->update('garage_service', $data);
     }
 
