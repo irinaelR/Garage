@@ -56,7 +56,7 @@ class Rendez_vous extends CI_Controller {
                 $service = $this->service_model->get_item_by_id($idService);
                 $available_slots = $this->slot_model->get_available($dhDebut, $service["duree"]);
                 $client = $this->session->userdata("client");
-                $idClient = $client;
+                $idClient = $client["idClient"];
     
                 if(count($available_slots) == 0) {
                     $response = array(
@@ -74,7 +74,7 @@ class Rendez_vous extends CI_Controller {
     
                     $devisData = array(
                         'dateDevis' => $dhDebut,
-                        'numVoiture' => $client,
+                        'numVoiture' => $client["numVoiture"],
                         'nomService' => $service["nom"],
                         'prixService' => $service["prix"],
                         'dureeService' => $service["duree"],
@@ -273,7 +273,7 @@ class Rendez_vous extends CI_Controller {
         $data = array();
         $data['title'] = "Liste des rendez-vous";
 
-        $rdvs = $this->rendez_vous_model->get_all_items();
+        $rdvs = $this->rendez_vous_model->get_rdv();
         $json_rdvs = json_encode($rdvs);
         $data['rdv'] = $json_rdvs;
 

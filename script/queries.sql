@@ -29,3 +29,6 @@ SELECT rdv.*, END_DATETIME(rdv.dateDebut, s.duree, '08:00:00', '18:00:00') AS da
             OR 
             -- va commencer pendant l'intervalle du nouveau rdv
             (rdv.dateDebut >= '2024-07-15 09:00:00' AND rdv.dateDebut < END_DATETIME('2024-07-15 09:00:00', '02:00:00', '08:00:00', '18:00:00')));
+
+SELECT idSlot, COUNT(*) AS nb FROM garage_rendez_vous AS rdv
+    WHERE (rdv.dateDebut < ? AND rdv.dateDebut >= ?) OR (END_DATETIME(rdv.dateDebut, s.duree, (SELECT heure FROM garage_horaires WHERE nom='ouverture'), (SELECT heure FROM garage_horaires WHERE nom='fermeture')) < ? AND END_DATETIME(rdv.dateDebut, s.duree, (SELECT heure FROM garage_horaires WHERE nom='ouverture'), (SELECT heure FROM garage_horaires WHERE nom='fermeture')) >= ?)

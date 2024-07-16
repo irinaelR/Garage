@@ -55,17 +55,17 @@ public function setNom($nom)
     }
 
     public function get_item_by_id($id) {
-        $query = $this->db->get_where('garage_slot', array('id' => $id));
+        $query = $this->db->get_where('garage_slot', array('idSlot' => $id));
         return $query->row_array();
     }
 
     public function update_item($id, $data) {
-        $this->db->where('id', $id);
+        $this->db->where('idSlot', $id);
         return $this->db->update('garage_slot', $data);
     }
 
     public function delete_item($id) {
-        $this->db->where('id', $id);
+        $this->db->where('idSlot', $id);
         return $this->db->delete('garage_slot');
     }
 
@@ -83,5 +83,24 @@ public function setNom($nom)
         $query = $this->db->query($sql, $query_data);
 
         return $query->result_array();
+    }
+
+    public function get_count_per_day($day) {
+        $sql = "SELECT idSlot, COUNT(*) AS nb FROM garage_rendez_vous AS rdv JOIN garage_service AS s ON rdv.idService = s.idService WHERE (rdv.dateDebut < ? AND rdv.dateDebut >= ?) OR (END_DATETIME(rdv.dateDebut, s.duree, (SELECT heure FROM garage_horaire WHERE nom='ouverture'), (SELECT heure FROM garage_horaire WHERE nom='fermeture')) < ? AND END_DATETIME(rdv.dateDebut, s.duree, (SELECT heure FROM garage_horaire WHERE nom='ouverture'), (SELECT heure FROM garage_horaire WHERE nom='fermeture')) >= ?) GROUP BY idSlot";
+
+        $heureOuverture = $this->db->get_where('garage_horaire', array('nom' => 'ouverture'));
+        $heureOuvertureRA = $heureOuverture->row_array()["heure"];
+        $heureFermeture = $this->db->get_where('garage_horaire', array('nom' => 'fermeture'));
+        $heureFermetureRA = $heureFermeture->row_array()["heure"]; 
+        
+        $dayAtOpening = $day . " " . $heureOuvertureRA;
+        $dayAtClosing = $day . " " . $heureFermetureRA;
+
+        $query_data = array($dayAtClosing, $dayAtOpening, $dayAtClosing, $dayAtOpening);
+
+        $query = $this->db->query($sql, $query_data);
+
+        return $query->result_array();
+
     }
 }

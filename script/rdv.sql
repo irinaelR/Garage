@@ -1,1 +1,1 @@
-SELECT numVoiture, dateDebut, idDevis FROM garage_rendez_vous grv JOIN garage_client gc ON grv.idClient = gc.idClient JOIN garage_devis 
+SELECT gc.numVoiture, dateDebut, idDevis FROM garage_rendez_vous grv JOIN garage_client gc ON grv.idClient = gc.idClient JOIN garage_devis gd ON gc.numVoiture = gc.numVoiture AND grv.dateDebut = gd.dateDevis;

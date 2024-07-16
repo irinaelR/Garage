@@ -133,4 +133,9 @@ public function setIdClient($idClient)
         return (new DateTime($time_only) >= new DateTime($heureOuvertureRA) && new DateTime($time_only) < new DateTime($heureFermetureRA));
 
     }
+
+    public function get_rdv() {
+        $query = $this->db->query("SELECT gc.numVoiture, dateDebut, idDevis FROM garage_rendez_vous grv JOIN garage_client gc ON grv.idClient = gc.idClient JOIN garage_devis gd ON gc.numVoiture = gc.numVoiture AND grv.dateDebut = gd.dateDevis");
+        return $query->result_array();
+    }
 }

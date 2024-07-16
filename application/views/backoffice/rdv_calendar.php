@@ -76,16 +76,19 @@
 <script>
     const modal = document.getElementById('hs-modal-rdvForm');
 
-    const rdvs = JSON.parse(<?php echo $rdv ?>);
+    const rdvs = <?php echo $rdv ?>;
 
+    console.log(rdvs);
     const array = []
 
-
-    rdvs.foreach(rdv => {
+    for (let index = 0; index < rdvs.length; index++) {
+        const element = rdvs[index];
         const tempObj = {
-            title: rdv.
+            title: element.numVoiture,
+            start: element.dateDebut
         }
-    })
+        array.push(tempObj);
+    }
 
     function closeModal() {
         modal.style.display = "none";
@@ -130,63 +133,64 @@
       },
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events: [
+    //   events: [
 
-        {
-          title: 'All Day Event',
-          start: '2023-01-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2023-01-07',
-          end: '2023-01-10'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2023-01-09T16:00:00'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2023-01-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2023-01-11',
-          end: '2023-01-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2023-01-12T10:30:00',
-          end: '2023-01-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2023-01-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2023-01-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2023-01-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2023-01-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2023-01-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2023-01-28'
-        }
-      ]
+    //     {
+    //       title: 'All Day Event',
+    //       start: '2023-01-01'
+    //     },
+    //     {
+    //       title: 'Long Event',
+    //       start: '2023-01-07',
+    //       end: '2023-01-10'
+    //     },
+    //     {
+    //       groupId: 999,
+    //       title: 'Repeating Event',
+    //       start: '2023-01-09T16:00:00'
+    //     },
+    //     {
+    //       groupId: 999,
+    //       title: 'Repeating Event',
+    //       start: '2023-01-16T16:00:00'
+    //     },
+    //     {
+    //       title: 'Conference',
+    //       start: '2023-01-11',
+    //       end: '2023-01-13'
+    //     },
+    //     {
+    //       title: 'Meeting',
+    //       start: '2023-01-12T10:30:00',
+    //       end: '2023-01-12T12:30:00'
+    //     },
+    //     {
+    //       title: 'Lunch',
+    //       start: '2023-01-12T12:00:00'
+    //     },
+    //     {
+    //       title: 'Meeting',
+    //       start: '2023-01-12T14:30:00'
+    //     },
+    //     {
+    //       title: 'Happy Hour',
+    //       start: '2023-01-12T17:30:00'
+    //     },
+    //     {
+    //       title: 'Dinner',
+    //       start: '2023-01-12T20:00:00'
+    //     },
+    //     {
+    //       title: 'Birthday Party',
+    //       start: '2023-01-13T07:00:00'
+    //     },
+    //     {
+    //       title: 'Click for Google',
+    //       url: 'http://google.com/',
+    //       start: '2023-01-28'
+    //     }
+    //   ]
+      events: array
     });
 
 

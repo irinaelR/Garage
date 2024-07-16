@@ -99,5 +99,29 @@ $this->form_validation->set_rules('nom', 'Nom', 'required');
         }
         echo json_encode($response);
     }
+
+    public function get_day_occupation() {
+        $day = $this->input->get('day');
+        $result = $this->slot_model->get_count_per_day($day);
+        $final_result = array();
+        foreach ($result as $key => $r) {
+            $final_result[] = array(
+                "nomSlot" => $this->slot_model->get_item_by_id($r["idSlot"])["nom"],
+                "idSlot" => $r["idSlot"],
+                "count" => $r["nb"]
+            );
+        }
+        echo json_encode($final_result);
+        
+    }
+
+    public function occupation_slots() {
+        $data = array();
+        $data['title'] = "Occupation des slots";
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('frontoffice/rdv', $data);
+        $this->load->view('templates/footer');
+    }
 }
 
