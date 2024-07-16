@@ -47,6 +47,22 @@
         </div>
       </div>
     </div>
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-0">
+      <div class="max-w-xl mx-auto">
+        <div class="text-start">
+          <h1 class="text-3xl font-bold text-primary-50 sm:text-4xl">
+            Base de données
+          </h1>
+          <p class="mt-1 text-primary-50">
+            Supprimer les données de la base
+          </p>
+        </div>
+
+        <div class="mt-20 py-10 flex justify-center align-center">
+            <button id="suppr-base" class="text-gray-200 text-xl font-bold w-2/3 py-5 rounded-md" style="background-color: #e71616;">Supprimer</button>
+        </div>
+      </div>
+    </div>
     <!-- End Hire Us -->
 </div>
 
@@ -178,4 +194,26 @@
     </div>
   </div>
 </div>
+<div id="hs-task-created-alert" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
+    <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+        <div class="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-neutral-900">
+
+            <div class="p-4 sm:p-10 text-center overflow-y-auto">
+
+                <h3 class="mb-2 text-xl font-bold text-gray-800 dark:text-neutral-200 message">
+                    Task successfully created!
+                </h3>
+
+                <div class="mt-6 flex justify-center gap-x-4">
+                    <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800" data-hs-overlay="#hs-task-created-alert">
+                        Ok
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button id="modal" style="display: none" data-hs-overlay="#hs-task-created-alert"></button>
 <!-- End Modal -->
+<script src="<?php echo base_url("assets/js/eraseBase.js")?>" type="module"></script>

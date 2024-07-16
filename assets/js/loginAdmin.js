@@ -27,7 +27,7 @@ function sendLoginData(){
                     }, 1500);
                 })
             } else {
-                window.location.href =  './../../index.php/Rendez_vous/nouveau_rdv';
+                window.location.href =  './../index.php/Rendez_vous/liste_rdv';
                 // window.location.href =  './../../index.php/User/check_session/'+fields[0].value;
             }
         },
