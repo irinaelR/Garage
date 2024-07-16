@@ -8,8 +8,8 @@ class Client extends CI_Controller {
         $this->load->model('client_model');
         $this->load->helper('url');
         $this->load->helper('form');
-        // $this->load->helper('type');
         $this->load->library('form_validation');
+        $this->load->library('session');
     }
 
     public function index() {
@@ -26,7 +26,6 @@ class Client extends CI_Controller {
         $this->form_validation->set_rules('numVoiture', 'NumVoiture', 'required');
         $this->form_validation->set_rules('idTypeVoiture', 'IdTypeVoiture', 'required');
 
-
         if ($this->form_validation->run() === FALSE) {
             $response = array(
                 'status' => 'error',
@@ -38,7 +37,6 @@ class Client extends CI_Controller {
                 'idClient' => null,
                 'numVoiture' => $this->input->post('numVoiture'),
                 'idTypeVoiture' => $this->input->post('idTypeVoiture'),
-
             );
             $exist = $this->client_model->get_item_by_name_type($data['numVoiture']);
             if(is_array($exist) && count($exist) != 0){
@@ -47,8 +45,8 @@ class Client extends CI_Controller {
                         'status' => 'success',
                         'message' => 'User connected successfully.'
                     );
-                    
-                    $this->session->set_userdata("client", "gxdych v");
+                    $this->session->set_userdata('client', $exist);
+                    log_message('debug', 'Session data set: ' . print_r($this->session->userdata('client'), true));
                 } else {
                     $response = array(
                         'status' => 'error',
@@ -56,14 +54,14 @@ class Client extends CI_Controller {
                     );
                 }
                 echo json_encode($response);
-                return;
+                return ;
             }
             if ($this->client_model->create_item($data)) {
                 $response = array(
                     'status' => 'success',
                     'message' => 'User created successfully.'
                 );
-                $sess = $this->client_model->get_item_by_name_type($data['numVoiture']);
+                $exist = $this->client_model->get_item_by_name_type($data['numVoiture']);
                 $obj = new Client_model();
                 $obj->setIdClient($exist["idClient"]);
                 $obj->setNumVoiture($exist["numVoiture"]);
@@ -128,5 +126,6 @@ class Client extends CI_Controller {
         }
         echo json_encode($response);
     }
+
 }
 

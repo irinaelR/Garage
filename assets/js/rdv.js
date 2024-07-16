@@ -41,7 +41,7 @@ function sendRdvData() {
 }
 
 var form = document.getElementById('rdvForm');
-form.submit(function(event) {
+form.onsubmit = function(event) {
     event.preventDefault();
     sendRdvData();
-});
+};

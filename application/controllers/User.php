@@ -12,6 +12,7 @@ class User extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('type_voiture_model');
         $this->load->model('client_model');
+        $this->load->library("session");
     }
 
     /**
@@ -41,4 +42,14 @@ class User extends CI_Controller {
 		$this->load->view('profile/sign_in');
         $this->load->view('templates/footer');
 	}
+
+    public function check_session() {
+        $client = $this->session->userdata('client');
+        if ($client) {
+            echo "Session is set: ";
+            redirect("/Rendez_vous/nouveau_rdv");
+        } else {
+            echo "Session is not set.";
+        }
+    }
 }

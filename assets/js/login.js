@@ -11,10 +11,13 @@ function sendLoginData(){
         data: formData,
         contentType: false,
         processData: false,
+        xhrFields: {
+            withCredentials: true
+        },
         success: function(response) {
-            result = JSON.parse(response)
+            result = JSON.parse(response);
             console.log(result);
-            if (result.status == "error") {
+            if (result.status === "error") {
                 error.style.color = "red";
                 error.textContent = result.message;
                 fields.forEach(field => {
@@ -25,6 +28,7 @@ function sendLoginData(){
                 })
             } else {
                 window.location.href =  './../../index.php/Rendez_vous/nouveau_rdv';
+                // window.location.href =  './../../index.php/User/check_session/'+fields[0].value;
             }
         },
         error: function(xhr, status, error) {

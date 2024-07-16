@@ -10,6 +10,7 @@ class Rendez_vous extends CI_Controller {
         $this->load->model('slot_model');
         $this->load->helper('url');
         $this->load->helper('form');
+        $this->load->library('session');
         $this->load->library('form_validation');
     }
 
@@ -27,8 +28,8 @@ class Rendez_vous extends CI_Controller {
         // $this->form_validation->set_rules('idRendezVous', 'IdRendezVous', 'required');
         $this->form_validation->set_rules('dateDebut', 'DateDebut', 'required');
         $this->form_validation->set_rules('idService', 'IdService', 'required');
-// $this->form_validation->set_rules('idSlot', 'IdSlot', 'required');
-// $this->form_validation->set_rules('idClient', 'IdClient', 'required');
+        // $this->form_validation->set_rules('idSlot', 'IdSlot', 'required');
+        // $this->form_validation->set_rules('idClient', 'IdClient', 'required');
 
 
         if ($this->form_validation->run() === FALSE) {
@@ -78,10 +79,10 @@ class Rendez_vous extends CI_Controller {
 
     public function update($id) {
         $this->form_validation->set_rules('idRendezVous', 'IdRendezVous', 'required');
-$this->form_validation->set_rules('dateDebut', 'DateDebut', 'required');
-$this->form_validation->set_rules('idService', 'IdService', 'required');
-$this->form_validation->set_rules('idSlot', 'IdSlot', 'required');
-$this->form_validation->set_rules('idClient', 'IdClient', 'required');
+        $this->form_validation->set_rules('dateDebut', 'DateDebut', 'required');
+        $this->form_validation->set_rules('idService', 'IdService', 'required');
+        $this->form_validation->set_rules('idSlot', 'IdSlot', 'required');
+        $this->form_validation->set_rules('idClient', 'IdClient', 'required');
 
 
         if ($this->form_validation->run() === FALSE) {
@@ -93,11 +94,10 @@ $this->form_validation->set_rules('idClient', 'IdClient', 'required');
         } else {
             $data = array(
                 'idRendezVous' => $this->input->post('idRendezVous'),
-'dateDebut' => $this->input->post('dateDebut'),
-'idService' => $this->input->post('idService'),
-'idSlot' => $this->input->post('idSlot'),
-'idClient' => $this->input->post('idClient'),
-
+                'dateDebut' => $this->input->post('dateDebut'),
+                'idService' => $this->input->post('idService'),
+                'idSlot' => $this->input->post('idSlot'),
+                'idClient' => $this->input->post('idClient'),
             );
             if ($this->rendez_vous_model->update_item($id, $data)) {
                 $response = array(
@@ -130,8 +130,8 @@ $this->form_validation->set_rules('idClient', 'IdClient', 'required');
     }
 
     public function nouveau_rdv() {
-            $client = $this->session->userdata("client");
-        // if($client != null) {
+        $client = $this->session->userdata('client');
+         if($client != null) {
             $data = array();
             $data['title'] = "Nouveau rendez-vous";
     
@@ -143,7 +143,8 @@ $this->form_validation->set_rules('idClient', 'IdClient', 'required');
             $this->load->view('templates/header', $data);
             $this->load->view('frontoffice/rdv', $data);
             $this->load->view('templates/footer');
-        // } else {
+         }
+//         else {
             
         // }
     }

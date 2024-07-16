@@ -5,7 +5,7 @@
         Rendez-vous
         </h1>
         <p class="mt-1 text-primary-50">
-        Réservez votre prochain rendez-vous chez nous 
+        Réservez votre prochain rendez-vous chez nous <?php echo($client["numVoiture"]) ?>
         </p>
     </div>
 
