@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/my-app/S4/Web/Projets/Garage';
+
+$config['base_url'] = '/projets/CodeIgniter/Garage';
 
 /*
 |--------------------------------------------------------------------------
