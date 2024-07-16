@@ -1,7 +1,8 @@
 DELIMITER //
 
-CREATE OR REPLACE FUNCTION END_DATETIME(dateDebut DATETIME, duree TIME, heureOuverture TIME, heureFermeture TIME)
+CREATE FUNCTION END_DATETIME(dateDebut DATETIME, duree TIME, heureOuverture TIME, heureFermeture TIME)
 RETURNS DATETIME
+NO SQL
 BEGIN
     DECLARE end_datetime DATETIME;
     DECLARE remaining_time TIME;
@@ -33,3 +34,28 @@ SELECT idSlot FROM garage_slot WHERE idSlot IN
 
 SELECT idSlot, COUNT(*) AS nb FROM garage_rendez_vous AS rdv
     WHERE (rdv.dateDebut < ? AND rdv.dateDebut >= ?) OR (END_DATETIME(rdv.dateDebut, s.duree, (SELECT heure FROM garage_horaires WHERE nom='ouverture'), (SELECT heure FROM garage_horaires WHERE nom='fermeture')) < ? AND END_DATETIME(rdv.dateDebut, s.duree, (SELECT heure FROM garage_horaires WHERE nom='ouverture'), (SELECT heure FROM garage_horaires WHERE nom='fermeture')) >= ?)
+
+DELIMITER //
+
+CREATE OR REPLACE FUNCTION AVAILABLE_SLOTS(dateDebut DATETIME, idService INT, heureOuverture TIME, heureFermeture TIME)
+RETURNS INT
+BEGIN
+    DECLARE first_available_slot INT;
+
+    SELECT idSlot INTO first_available_slot FROM garage_slot WHERE idSlot NOT IN
+    (SELECT idSlot
+    FROM garage_rendez_vous AS rdv
+    JOIN garage_service AS s
+        ON rdv.idService = s.idService
+    WHERE
+            -- va commencer avant et va se finir après le début du nouveau rdv
+            ((rdv.dateDebut < dateDebut AND END_DATETIME(rdv.dateDebut, s.duree, heureOuverture, heureFermeture) > dateDebut))
+            OR
+            -- va commencer pendant l'intervalle du nouveau rdv
+            (rdv.dateDebut >= dateDebut AND rdv.dateDebut < END_DATETIME(dateDebut, (SELECT duree FROM garage_service AS s WHERE s.idService = idService), heureOuverture, heureOuverture))
+    ) LIMIT 1;
+
+    RETURN first_available_slot;
+END //
+
+DELIMITER ;

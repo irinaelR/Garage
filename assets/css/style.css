@@ -740,6 +740,16 @@ video {
   margin-bottom: 1.75rem;
 }
 
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
+.mx-7 {
+  margin-left: 1.75rem;
+  margin-right: 1.75rem;
+}
+
 .-ms-px {
   margin-inline-start: -1px;
 }
@@ -814,6 +824,10 @@ video {
 
 .mt-7 {
   margin-top: 1.75rem;
+}
+
+.mb-7 {
+  margin-bottom: 1.75rem;
 }
 
 .block {
@@ -904,6 +918,10 @@ video {
   height: 1px;
 }
 
+.h-\[30px\] {
+  height: 30px;
+}
+
 .h-auto {
   height: auto;
 }
@@ -911,26 +929,6 @@ video {
 .h-fit {
   height: -moz-fit-content;
   height: fit-content;
-}
-
-.h-1 {
-  height: 0.25rem;
-}
-
-.h-1\/3 {
-  height: 33.333333%;
-}
-
-.h-2\/3 {
-  height: 66.666667%;
-}
-
-.h-\[20px\] {
-  height: 20px;
-}
-
-.h-\[30px\] {
-  height: 30px;
 }
 
 .min-h-32 {
@@ -957,6 +955,18 @@ video {
   width: 100%;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-1\/3 {
+  width: 33.333333%;
+}
+
+.min-w-\[250px\] {
+  min-width: 250px;
+}
+
 .min-w-full {
   min-width: 100%;
 }
@@ -971,6 +981,14 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-\[full\] {
+  max-width: full;
+}
+
+.max-w-full {
+  max-width: 100%;
 }
 
 .flex-none {
@@ -1021,6 +1039,10 @@ video {
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-col {
@@ -1213,6 +1235,11 @@ video {
 
 .border-transparent {
   border-color: transparent;
+}
+
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .border-t-transparent {
@@ -1525,11 +1552,6 @@ video {
 .text-primary-500 {
   --tw-text-opacity: 1;
   color: rgb(12 170 220 / var(--tw-text-opacity));
-}
-
-.text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
 .text-secondary {
@@ -2173,11 +2195,6 @@ video {
   .dark\:text-neutral-500 {
     --tw-text-opacity: 1;
     color: rgb(115 115 115 / var(--tw-text-opacity));
-  }
-
-  .dark\:text-white {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 
   .dark\:hover\:bg-neutral-800:hover {

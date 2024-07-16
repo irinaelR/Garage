@@ -22,9 +22,7 @@ function sendRdvData(){
                 //         field.style.outline = "none";
                 //     }, 1500);
                 // })
-            } else {
-                window.location.href =  './../../index.php/Devis/exportDevisPdf?id=' + result.devis;
-            }
+            } 
         },
         error: function(xhr, status, error) {
             console.error(error);

@@ -318,3 +318,5 @@
   </div>
 </div>
 <!-- End Modal -->
+
+<script src="<?php echo(base_url("assets/js/service.js"))  ?>"></script>

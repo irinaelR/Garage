@@ -75,7 +75,7 @@ public function setIdTypeVoiture($idTypeVoiture)
     }
 
     public function get_item_by_id($id) {
-        $query = $this->db->get_where('garage_client', array('id' => $id));
+        $query = $this->db->get_where('garage_client', array('idClient' => $id));
         return $query->row_array();
     }
 

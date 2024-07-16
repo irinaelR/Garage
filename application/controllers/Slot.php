@@ -6,6 +6,8 @@ class Slot extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('slot_model');
+        $this->load->model('service_model');
+        $this->load->model('client_model');
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->library('form_validation');
@@ -101,7 +103,10 @@ $this->form_validation->set_rules('nom', 'Nom', 'required');
     }
 
     public function get_day_occupation() {
-        $day = $this->input->get('day');
+        $day = $this->input->post('day');
+        if(!isset($day)) {
+            $day = config_item('dateDebut');
+        }
         $result = $this->slot_model->get_count_per_day($day);
         $final_result = array();
         foreach ($result as $key => $r) {
@@ -111,17 +116,53 @@ $this->form_validation->set_rules('nom', 'Nom', 'required');
                 "count" => $r["nb"]
             );
         }
-        echo json_encode($final_result);
+
+        $result = $this->slot_model->get_details_per_day($day);
+        $final_result_details = array();
+        foreach ($result as $key => $r) {
+            $final_result_details[] = array(
+                "idSlot" => $r["idSlot"],
+                "nomSlot" => $this->slot_model->get_item_by_id($r["idSlot"])["nom"],
+                "dateDebut" => $r["dateDebut"],
+                "nomService" => $this->service_model->get_item_by_id($r["idService"])["nom"],
+                "numVoiture" => $this->client_model->get_item_by_id($r["idClient"])["numVoiture"]
+            );
+        }
+        echo json_encode([$final_result, $final_result_details]);
         
+    }
+
+    // {"idRendezVous":"5","dateDebut":"2024-07-15 08:00:00","idService":"1","idSlot":"1","idClient":"1"}
+    public function get_day_occupation_details() {
+        $day = $this->input->post('day');
+        if(!isset($day)) {
+            $day = config_item('dateDebut');
+        }
+        $result = $this->slot_model->get_details_per_day($day);
+        $final_result = array();
+        foreach ($result as $key => $r) {
+            $final_result[] = array(
+                "idSlot" => $r["idSlot"],
+                "nomSlot" => $this->slot_model->get_item_by_id($r["idSlot"])["nom"],
+                "dateDebut" => $r["dateDebut"],
+                "nomService" => $this->service_model->get_item_by_id($r["idService"])["nom"],
+                "numVoiture" => $this->client_model->get_item_by_id($r["idClient"])["numVoiture"]
+            );
+        }
+        echo json_encode($final_result);
+
     }
 
     public function occupation_slots() {
         $data = array();
-        $data['title'] = "Occupation des slots";
-        
+        $data['title'] = "Occupation des slots par jour";
+
+        $data['referenceDate'] = config_item('dateDebut');
+
         $this->load->view('templates/header', $data);
-        $this->load->view('frontoffice/rdv', $data);
+        $this->load->view('backoffice/list_slots', $data);
         $this->load->view('templates/footer');
     }
+    
 }
 
