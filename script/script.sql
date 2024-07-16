@@ -60,3 +60,20 @@ create table garage_prestation(
     primary key(idPrestation),
     foreign key(idDevis) references garage_devis(idDevis)
 )engine=innoDB;
+
+create table garage_horaire(
+    nom varchar(50),
+    heure time
+)engine=innoDB;
+
+create table garage_travaux(
+    numVoiture varchar(50),
+    typeVoiture varchar(50),
+    dateDebut date,
+    heureDebut time,
+    typeService varchar(50),
+    montant decimal(15,3),
+    datePayement dateTime,
+    duree time,
+    slot int
+)engine=innoDB;

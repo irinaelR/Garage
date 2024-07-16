@@ -102,4 +102,30 @@ public function setPrix($prix)
         $this->db->where('id', $id);
         return $this->db->delete('garage_service');
     }
+
+    public function get_id_by_type($nom) {
+        $this->db->select('idService');
+        $this->db->from('garage_service');
+        $this->db->where('nom', $nom);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->idService;
+        } else {
+            return null;
+        }
+    }
+
+    public function get_duree_by_type($nom){
+        $this->db->select('duree');
+        $this->db->from('garage_service');
+        $this->db->where('nom', $nom);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->duree;
+        } else {
+            return null;
+        }
+    }
 }

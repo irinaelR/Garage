@@ -64,50 +64,50 @@ class Import_model extends CI_Model {
                 fclose($handle);
             }
 
+            $this->load->model('travaux_model');
+            $this->load->model('service_model');
+            $this->load->model('slot_model');
             $this->load->model('client_model');
             $this->load->model('rendez_vous_model');
             $this->load->model('devis_model');
             $this->load->model('prestation_model');
-            $this->load->model('type_voiture_model');
-            $this->load->model('service_model');
     
             foreach($lines as $line) {
-                $slot = 1;
+                $duree = $this->service_model->get_duree_by_type($line[4]);
 
-                $clientData = array(
+                $dateTime = DateTime::createFromFormat('d/m/Y', $line[2]);
+                $line[2] = $dateTime->format('Y-m-d');
+                if (isset($line[6])) {
+                    $dateTime2 = DateTime::createFromFormat('d/m/Y', $line[6]);
+                    if ($dateTime2 !== false) {
+                        $line[6] = $dateTime2->format('Y-m-d');
+                    } else {
+                        $line[6] = null;
+                    }
+                }
+                
+
+                $slot = $this->slot_model->get_available($line[2].' '.$line[3], $duree);
+                $travauxData = array(
                     'numVoiture' => $line[0],
-                    'idTypeVoiture' => get_id_by_nom($line[1])
+                    'typeVoiture' => $line[1],
+                    'dateDebut' => $line[2],
+                    'heureDebut' => $line[3],
+                    'typeService' => $line[4],
+                    'montant' => $line[5],
+                    'datePayement' => isset($line[6]) ? $line[6]:null,
+                    'duree' => $duree,
+                    'slot' => $slot[0]['idSlot']
                 );
     
-                $idClient = $this->client_model->create_item2($clientData);
-
-                $rendez_vousData = array(
-                    'dateDebut' => $line[2]+' '+$line[3],
-                    'idService' => $this->service_model->get_id_by_type($line[4]),
-                    'idSlot' => $slot,  
-                    'idClient' => $idClient               
-                );
-
-                $idRendez_vous = $this->rendez_vous_model->create_item2($rendez_vousData);
-
-                $devisData = array(
-                    'dateDevis' => $line[2]+' '+$line[3],
-                    'numVoiture' => $line[0],
-                    'nomService' => $line[4],
-                    'prix_service' => $line[5],
-                    'dureeService' => $this->service_model->get_duree_by_type($line[4]),
-                    'slot' => $slot
-                );
-
-                $idDevis = $this->devis_service->create_item2($devisData);
-
-                $prestationData = array(
-                    'idDevis' => $idDevis,
-                    'datePayement' => $line[6]
-                );
-
-                $this->prestation_model->create_item($prestationData);
+                $this->travaux_model->create_item($travauxData);
+            
             }
+
+            $this->client_model->insert_from_travaux();
+            $this->rendez_vous_model->insert_from_travaux();
+            $this->devis_model->insert_from_travaux();
+            $this->prestation_model->insert_from_travaux();
         }
     }
 }

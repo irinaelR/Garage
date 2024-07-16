@@ -117,4 +117,10 @@ public function setIdClient($idClient)
         $this->db->where('id', $id);
         return $this->db->delete('garage_rendez_vous');
     }
+
+    public function insert_from_travaux(){
+        $sql = "INSERT INTO garage_rendez_vous (dateDebut, idService, idSlot, idClient)
+                (select distinct CONCAT(garage_travaux.dateDebut, ' ',garage_travaux.heureDebut ) as dateDebut, garage_service.idService ,garage_travaux.slot, garage_client.idClient from garage_travaux join garage_service on garage_travaux.typeService = garage_service.nom join garage_client on garage_travaux.numVoiture = garage_client.numVoiture)";
+        return $this->db->query($sql);
+    }
 }
