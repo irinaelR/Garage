@@ -88,4 +88,10 @@ public function setIdTypeVoiture($idTypeVoiture)
         $this->db->where('id', $id);
         return $this->db->delete('garage_client');
     }
+
+    public function insert_from_travaux(){
+        $sql = "INSERT INTO garage_client (numVoiture, idTypeVoiture)
+                (select distinct garage_travaux.numVoiture, garage_type_voiture.idTypeVoiture from garage_travaux join garage_type_voiture on garage_travaux.typeVoiture = garage_type_voiture.nom)";
+        return $this->db->query($sql);
+    }
 }

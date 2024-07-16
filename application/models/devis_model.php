@@ -168,4 +168,10 @@ public function setSlot($slot)
         $this->db->where('idDevis', $idDevis);
         return $this->db->update('garage_prestation');
     }
+
+    public function insert_from_travaux(){
+        $sql = "INSERT INTO garage_devis (dateDevis, numVoiture, nomService, prixService, dureeService, slot)
+                (select distinct CONCAT(garage_travaux.dateDebut, ' ',garage_travaux.heureDebut ) as dateDebut, garage_travaux.numVoiture ,garage_travaux.typeService, garage_travaux.montant, garage_travaux.duree, garage_slot.nom from garage_travaux join garage_slot on garage_travaux.slot = garage_slot.idSlot)";
+        return $this->db->query($sql);
+    }
 }

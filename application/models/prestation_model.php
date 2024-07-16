@@ -85,4 +85,10 @@ public function setDatePayement($datePayement)
         $this->db->where('id', $id);
         return $this->db->delete('garage_prestation');
     }
+
+    public function insert_from_travaux(){
+        $sql = "INSERT INTO garage_prestation (idDevis, datePayement)
+                (select distinct garage_devis.idDevis, garage_travaux.datePayement from garage_travaux join garage_devis on garage_travaux.numVoiture = garage_devis.numVoiture where garage_travaux.montant = garage_devis.prixService and garage_devis.dateDevis = CONCAT(garage_travaux.dateDebut,' ',garage_travaux.heureDebut))";
+        return $this->db->query($sql);
+    }
 }

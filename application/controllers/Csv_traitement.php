@@ -21,6 +21,7 @@ class Csv_traitement extends CI_Controller {
         $this->load->model('import_model');
 
         $this->import_model->import_service($config, $separator);
+        $this->import_model->import_travaux($config, $separator);
 
         $data['title'] = 'Csv';
 

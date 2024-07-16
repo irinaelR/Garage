@@ -138,4 +138,10 @@ public function setIdClient($idClient)
         $query = $this->db->query("SELECT gc.numVoiture, dateDebut, idDevis FROM garage_rendez_vous grv JOIN garage_client gc ON grv.idClient = gc.idClient JOIN garage_devis gd ON gc.numVoiture = gc.numVoiture AND grv.dateDebut = gd.dateDevis");
         return $query->result_array();
     }
+    
+    public function insert_from_travaux(){
+        $sql = "INSERT INTO garage_rendez_vous (dateDebut, idService, idSlot, idClient)
+                (select distinct CONCAT(garage_travaux.dateDebut, ' ',garage_travaux.heureDebut ) as dateDebut, garage_service.idService ,garage_travaux.slot, garage_client.idClient from garage_travaux join garage_service on garage_travaux.typeService = garage_service.nom join garage_client on garage_travaux.numVoiture = garage_client.numVoiture)";
+        return $this->db->query($sql);
+    }
 }

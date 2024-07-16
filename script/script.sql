@@ -71,3 +71,15 @@ create table garage_admin (
     identifiant varchar(20),
     mdp varchar(64)
 );
+
+create table garage_travaux(
+    numVoiture varchar(50),
+    typeVoiture varchar(50),
+    dateDebut date,
+    heureDebut time,
+    typeService varchar(50),
+    montant decimal(15,3),
+    datePayement dateTime,
+    duree time,
+    slot int
+)engine=innoDB;
