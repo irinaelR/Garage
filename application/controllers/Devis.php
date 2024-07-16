@@ -134,5 +134,48 @@ $this->form_validation->set_rules('slot', 'Slot', 'required');
         $this->pdfGenerator_model->generate_pdf($data);
         // $this->load->view('pdf_template', $data);
     }
+
+    public function list(){
+        $data['title'] = "List"; 
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/navbar', $data);
+		$this->load->view('crud/devis_list', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function devis_with_prestation(){
+        $items = $this->devis_model->get_devis_with_prestation();
+        echo json_encode($items);
+    }
+
+    public function update_date_payement() {
+        $idDevis = $this->input->post('idDevis');
+        $datePayement = $this->input->post('datePayement');
+
+        $date1 = new DateTime(config_item('dateDebut'));
+        $date2 = new DateTime($datePayement);
+        if($date1>$date2){
+            $response = array(
+                'status' => null,
+                'message' => 'Failed to update item.'
+            );
+            echo json_encode($response);
+            return;
+        }else{
+            if ($this->devis_model->update_date_payement($idDevis, $datePayement)) {
+                $response = array(
+                    'status' => 'success',
+                    'message' => 'Item updated successfully.'
+                );   
+            } else {
+                $response = array(
+                    'status' => 'error',
+                    'message' => 'Failed to update item.'
+                );
+            }
+            echo json_encode($response);
+        }
+    }
 }
 
